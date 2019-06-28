@@ -13,6 +13,7 @@ import com.thiagobrito.cursomc.domain.Cidade;
 import com.thiagobrito.cursomc.domain.Cliente;
 import com.thiagobrito.cursomc.domain.Endereco;
 import com.thiagobrito.cursomc.domain.Estado;
+import com.thiagobrito.cursomc.domain.ItemPedido;
 import com.thiagobrito.cursomc.domain.Pagamento;
 import com.thiagobrito.cursomc.domain.PagamentoComBoleto;
 import com.thiagobrito.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.thiagobrito.cursomc.repositories.CidadeRepository;
 import com.thiagobrito.cursomc.repositories.ClienteRepository;
 import com.thiagobrito.cursomc.repositories.EnderecoRepository;
 import com.thiagobrito.cursomc.repositories.EstadoRepository;
+import com.thiagobrito.cursomc.repositories.ItemPedidoRepository;
 import com.thiagobrito.cursomc.repositories.PagamentoRepository;
 import com.thiagobrito.cursomc.repositories.PedidoRepository;
 import com.thiagobrito.cursomc.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class CursomcApplication implements CommandLineRunner{
 
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -93,6 +98,17 @@ public class CursomcApplication implements CommandLineRunner{
 		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, stf.parse("20/10/2019 00:00"), null);
 		ped2.setPagamento(pagto2);
 		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.0, 1, 800.00);
+		
+		ped1.getItem().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItem().addAll(Arrays.asList(ip3));
+		
+		p1.getItem().addAll(Arrays.asList(ip1));
+		p2.getItem().addAll(Arrays.asList(ip3));
+		p3.getItem().addAll(Arrays.asList(ip2));
+		
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 		
 		cli1.getTelefones().addAll(Arrays.asList("2131231", "34234234"));
@@ -117,6 +133,7 @@ public class CursomcApplication implements CommandLineRunner{
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 		
 	}
 

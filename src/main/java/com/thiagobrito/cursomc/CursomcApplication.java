@@ -87,10 +87,10 @@ public class CursomcApplication implements CommandLineRunner{
 		Endereco e1 = new Endereco(null, "Rua Floreas", "400", "Apto 303", "Jardim", "232132131", cli1, c1);
 		Endereco e2 = new Endereco(null, "Rua Santa Maria", "77", "Casa", "Vila Santa Terezinha", "13131", cli1, c2);
 		
-		SimpleDateFormat stf = new SimpleDateFormat("DD/MM/YYYY HH:MM");
+		SimpleDateFormat stf = new SimpleDateFormat("dd/mm/yyyy HH:MM");
 		
-		Pedido ped1 = new Pedido(null, stf.parse("12/12/2019 10:23"), cli1, e1);
-		Pedido ped2 = new Pedido(null, stf.parse("12/10/2019 10:34"), cli1, e2);
+		Pedido ped1 = new Pedido(null, stf.parse("08/08/2019 10:23"), cli1, e1);
+		Pedido ped2 = new Pedido(null, stf.parse("07/07/2019 10:34"), cli1, e2);
 		
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
